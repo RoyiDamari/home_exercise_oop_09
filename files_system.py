@@ -1,6 +1,6 @@
 import os
-from Directory import Directory
-from File import File
+from directory import Directory
+from file import File
 
 
 def draw_files_system(folder_path, space = ''):
