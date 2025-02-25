@@ -1,24 +1,34 @@
 from abc import ABC, abstractmethod
 
-
 class Component(ABC):
 
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, name: str):
+        self.name: str = name
+
+    @staticmethod
+    def format_size(size_in_bytes):
+        """Convert bytes to human-readable format (KB, MB, GB)."""
+        if size_in_bytes < 1024:
+            return f"{size_in_bytes} B"
+        elif size_in_bytes < 1024 ** 2:
+            return f"{size_in_bytes / 1024:.2f} KB"
+        elif size_in_bytes < 1024 ** 3:
+            return f"{size_in_bytes / (1024 ** 2):.2f} MB"
+        else:
+            return f"{size_in_bytes / (1024 ** 3):.2f} GB"
 
     @abstractmethod
     def add_child(self, child):
         pass
 
     @abstractmethod
-    def remove_child(self, child):
+    def remove_file(self, child):
         pass
 
     @abstractmethod
-    def get_children(self):
+    def get_size(self):
         pass
 
     @abstractmethod
-    def draw(self, space):
+    def print(self, space):
         pass
-

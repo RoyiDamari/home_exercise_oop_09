@@ -1,5 +1,5 @@
 from recursion import range_like, factorial, sum_of_digits, count_occurrences
-from files_system import draw_files_system
+from files_system import list_files_recc
 
 
 def main():
@@ -32,8 +32,12 @@ def main():
     print(count_occurrences([5, 5, 5, 5], 5))
     print(count_occurrences([1, 2, 3, 4], 6))
     print(count_occurrences([], 10))
+    print("-" * 50)
 
-    draw_files_system("C:/Git")
+
+    root = list_files_recc(r"C:\Git")
+    root.get_size()  # not recursive
+    root.print('')
 
 
 

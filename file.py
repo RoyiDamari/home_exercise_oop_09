@@ -1,37 +1,28 @@
-from component import Component
 from typing import override
+from component import Component
 
 
 class File(Component):
 
     def __init__(self, name, size):
         super().__init__(name)
-        self.size = size
+        self.__size = size
 
     @override
-    def add_child(self, child):
-        raise NotImplementedError("Cannot add children to a file (Leaf)")
+    def add_child(self, child: Component):
+        raise NotImplementedError
 
     @override
-    def remove_child(self, child):
-        raise NotImplementedError("Cannot remove children from a file (Leaf)")
+    def remove_file(self, child: Component):
+        raise NotImplementedError
 
     @override
-    def get_children(self):
-        return []
-
-    def format_size(self):
-        """✅ Convert file size from bytes to human-readable format."""
-        if self.size < 1024:
-            return f"{self.size} B"
-        elif self.size < 1024 ** 2:
-            return f"{self.size / 1024:.2f} KB"
-        elif self.size < 1024 ** 3:
-            return f"{self.size / (1024 ** 2):.2f} MB"
-        else:
-            return f"{self.size / (1024 ** 3):.2f} GB"
+    def get_size(self):
+        return self.__size
 
     @override
-    def draw(self, space=""):
-        """✅ Draws the file with its size."""
-        print(space + f"{self.name} - {self.format_size()}")
+    def print(self, space):
+        print(space + self.name, Component.format_size(self.__size))
+
+    def __str__(self):
+        return f"name: {self.name} size: {self.__size}"

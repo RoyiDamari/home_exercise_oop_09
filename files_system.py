@@ -1,29 +1,26 @@
 import os
-from directory import Directory
+from folder import Folder
 from file import File
 
-
-def draw_files_system(folder_path, space = ''):
+def list_files_recc(folder_path) -> "Folder":
 
     folder_name = os.path.basename(folder_path)
-    directory = Directory(folder_name)
-    directory.draw(space)
+    current_folder = Folder(folder_name)
 
     for item in os.listdir(folder_path):
-        full_path =  os.path.join(folder_path, item)
+
+        full_path = os.path.join(folder_path, item)
 
         if os.path.isdir(full_path):
-            subdir = Directory(item)
-            directory.add_child(subdir)
-
             if not item.startswith('.') and not item.startswith('__'):
-                draw_files_system(full_path, space + ' ' * 4)
-
+            # FOLDER
+                folder_comp = list_files_recc(full_path)
+                current_folder.add_child(folder_comp)
         else:
-                size = os.path.getsize(full_path)
-                file = File(item, size)
-                directory.add_child(file)
-                file.draw(space + ' ' * 4)
+            # FILE
+            size = os.path.getsize(full_path)
+            file = File(item, size)
+            current_folder.add_child(file)
 
+    return current_folder
 
-    return directory
